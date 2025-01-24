@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Django 프로젝트</title>
+  </head>
+  <body>
+
+    <header>
+      {% block header %}
+      <h2>Django 프로젝트</h2>
+      <nav>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'chatbot:chat' %}">챗봇</a>
+
+        {% if user.is_authenticated %}
+        <!-- 로그인한 사용자에게만 표시 -->
+        <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+        {% else %}
+          <!-- 비로그인 사용자에게만 표시 -->
+          <a href="{% url 'accounts:signup' %}">회원가입</a>
+          <a href="{% url 'accounts:login' %}">로그인</a>
+        {% endif %}
+          <a href="{% url 'posts:post_list' %}">게시판</a>
+
+      </nav>
+      {% endblock %}
+    </header>
+
+    <main>
+      {% block content %}Default Content{% endblock %}
+    </main>
+
+    <footer>{% block footer %}Footer 입니다.{% endblock %}
+    </footer>
+
+  </body>
+</html>

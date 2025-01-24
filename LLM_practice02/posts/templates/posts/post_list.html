@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h2>게시글 목록</h2>
+
+<!-- 새 게시글 작성 버튼 -->
+<a href="{% url 'posts:post_create' %}" class="btn btn-primary">새 게시글 작성</a>
+
+<!-- 게시글 목록 -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성자</th>
+            <th>좋아요 수</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'posts:post_detail' post.pk %}">{{ post.title }}</a></td>
+            <td>{{ post.content|truncatechars:50 }}</td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.total_likes }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" style="text-align: center;">게시글이 없습니다.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

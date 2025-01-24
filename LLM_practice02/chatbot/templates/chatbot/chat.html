@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Chatbot</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="user_input">대화 입력:</label>
+    <input type="text" id="user_input" name="user_input" required>
+    <button type="submit">전송</button>
+</form>
+<hr>
+{% if ai_response %}
+    <p><strong>사용자:</strong> {{ user_input }}</p>
+    <p><strong>AI:</strong> {{ ai_response }}</p>
+{% endif %}
+{% endblock %}
