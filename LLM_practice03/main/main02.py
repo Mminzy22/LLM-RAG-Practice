@@ -8,7 +8,7 @@ tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf")
 
 model= AutoModelForCausalLM.from_pretrained(
     "meta-llama/Llama-2-7b-chat-hf",
-    device_map="auto",
+    device_map="cpu",
     offload_folder="offload",
     offload_state_dict=True
     )
@@ -28,3 +28,5 @@ end_time = time.time()
 # 실행 시간 출력
 execution_time = end_time - start_time
 print(f"실행 시간: {execution_time:.6f}초")
+# auto : 398.860001초 / 6.65분
+# CPU: 1097.478652초 / 18.29분
