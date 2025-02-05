@@ -13,8 +13,21 @@ model= AutoModelForCausalLM.from_pretrained(
     offload_state_dict=True
     )
 
-# 입력 메시지
-input_text = "How is korea?"
+prompt_template = """
+You are a cafe worker.
+
+Question: {question}
+
+Answer: 
+"""
+
+input_data = {
+    "question": "What is your favorite drink?"
+}
+
+prompt = prompt_template.format(**input_data)
+
+
 inputs = tokenizer(input_text, return_tensors="pt")
 
 # 텍스트 생성
@@ -28,5 +41,3 @@ end_time = time.time()
 # 실행 시간 출력
 execution_time = end_time - start_time
 print(f"실행 시간: {execution_time:.6f}초")
-# auto : 398.860001초 / 6.65분
-# CPU: 1097.478652초 / 18.29분
